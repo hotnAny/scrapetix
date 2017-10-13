@@ -1,0 +1,31 @@
+{
+  "name": "scrapetix",
+  "version": "1.0.0",
+  "description": "scraping tickets from seakgeek.com",
+  "main": "scrapetix.js",
+  "dependencies": {
+    "core-js": "^2.5.1",
+    "js-yaml": "^3.10.0",
+    "nodemailer": "^4.2.0",
+    "util": "^0.10.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "./phantomjs scrapetix.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hotnAny/scrapetix"
+  },
+  "keywords": [
+    "scrape",
+    "tickets",
+    "seatgeek"
+  ],
+  "author": "xiangchen@acm.org",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hotnAny/scrapetix/issues"
+  },
+  "homepage": "https://github.com/hotnAny/scrapetix"
+}
