@@ -1,0 +1,55 @@
+// var p = require('webpage').create();
+					// p.open(url, function(status) {
+					// 	console.log("Status: " + status);
+					// 	if (status === "success") {
+					// 		setTimeout(function() {
+					// 			p.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js", function() {
+					// 				p.evaluate(function() {
+					// 					var priceTagClass = 'omnibox__listing__deal-score';
+					// 					var priceTags = $('div.' + priceTagClass);
+					// 					for (var i = 0; i < priceTags.length; i++) console.log($(priceTags[i]).html());
+					// 				});
+
+					// 				// phantom.exit();
+					// 			});
+					// 		}, 1000);
+					// 	}
+					// });
+
+
+                    // var keys = Object.keys(lsEvents);
+				// for (key of keys) {
+				// 	console.log(key)
+				// // 	var event = lsEvents[key];
+				// // 	if (event.attribs != undefined && event.attribs.href != undefined) {
+				// // 		var urlPerGame = 'https://seatgeek.com/' + event.attribs.href;
+				// // 		console.log(urlPerGame);
+				// // 	}
+				// }
+
+
+                //
+			//	2. crawl each game's good deals
+			//
+			// for (var j = 0; j < lsGameUrls.length; j++) {
+			// 	var url = lsGameUrls[j];
+			// 	console.log(url);
+
+			// 	var p = require('webpage').create();
+			// 	p.open(url, function(status) {
+			// 		console.log("Status: " + status);
+			// 		if (status === "success") {
+			// 			setTimeout(function() {
+			// 				p.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js", function() {
+			// 					p.evaluate(function() {
+			// 						var priceTagClass = 'omnibox__listing__deal-score';
+			// 						var priceTags = $('div.' + priceTagClass);
+			// 						for (var i = 0; i < priceTags.length; i++) console.log($(priceTags[i]).html());
+			// 					});
+
+			// 					// phantom.exit();
+			// 				});
+			// 			}, 1000);
+			// 		}
+			// 	});
+			// }

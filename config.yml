@@ -1,0 +1,17 @@
+# [your info]
+email: 'xiangchen@acm.org'
+
+# [your team]
+urlGames: 'https://seatgeek.com/pittsburgh-penguins-tickets'
+# use the team's name (replace space with -) to indicate location
+# e.g., 'penguins' means at pittsburgh
+locGames: 'penguins'
+
+# [filtering criteria]
+greatDealScore: 97
+okDealScore: 88
+cheapPrice: 30
+
+# [scraping frequency]
+fixedInterval: 50000 # 50 sec
+flexibleInterval: 150000 # 150 sec
