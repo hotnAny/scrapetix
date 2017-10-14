@@ -9,7 +9,9 @@ a script to scrape (sports) tickets deals from SeatGeek (https://seatgeek.com/),
 * edit configuration file on-the-fly without having to restart the script
 
 ### Installing
-install required packages:
+might need to [install phantomjs](http://phantomjs.org/download.html) first
+
+then install other required packages:
 ```shell
 npm i
 ```
