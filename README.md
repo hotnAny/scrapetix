@@ -4,17 +4,21 @@
 
 a script to scrape (sports) tickets deals from SeatGeek (https://seatgeek.com/), which means it has limited generalizability beyond this particular website ...
 
+* customized tickets scraping for your favorite team, price range, etc. (see the customization section)
+* recurring scraping with email notification
+
 ### Installing
 installing required packages:
 ```shell
 npm i
 ```
 
-## Getting Started
+### Getting Started
 use phantomjs to run the scraping script:
 ```shell
 ./phantomjs scrapetix.js
 ```
+
 ### Customization
 1. to receive deal alert via email, you need to create a [private.yml](private.yml) file with your email information
 ```yaml

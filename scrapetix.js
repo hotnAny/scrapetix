@@ -21,11 +21,6 @@ require('./xray') // my javascript array extension
 var urlGames
 var locGames
 
-// _filtering criteria 
-var greatDealScore
-var okDealScore
-var cheapPrice
-
 // scraping frequency (to be read from config preriodically)
 var fixedInterval
 var flexibleInterval
@@ -33,7 +28,7 @@ var flexibleInterval
 // user email
 var to
 
-// filters for selecting deals
+// filtering criteria for selecting deals
 var filters
 
 //
@@ -213,21 +208,10 @@ var _filter = function(dealInfo) {
 		var minPrice = filters[i].minPrice || 0
 		var maxPrice = filters[i].maxPrice || 100
 		var year = filters[i].year || dealInfo.year
-		if(dealInfo.score >= score && minPrice <= dealInfo.price 
-			&& dealInfo.price < maxPrice && dealInfo.year == year) {
+		if (dealInfo.score >= score && minPrice <= dealInfo.price && dealInfo.price < maxPrice && dealInfo.year == year) {
 			return true
 		}
-
 	}
-
-	// deal goodness
-	// var isOkDeal = dealInfo.score >= okDealScore
-	// var isGreatDeal = dealInfo.score >= greatDealScore
-
-	// // price
-	// var isCheapPrice = dealInfo.price <= cheapPrice;
-
-	// return isGreatDeal || (dealInfo.year == 2017 && isOkDeal && isCheapPrice);
 }
 
 //
@@ -272,9 +256,6 @@ var _updateConfig = function() {
 	to = config.email
 	urlGames = config.urlGames
 	locGames = config.locGames
-	greatDealScore = config.greatDealScore
-	okDealScore = config.okDealScore
-	cheapPrice = config.cheapPrice
 	fixedInterval = config.fixedInterval
 	flexibleInterval = config.flexibleInterval
 	filters = config.filters

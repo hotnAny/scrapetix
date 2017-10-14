@@ -7,11 +7,6 @@ urlGames: 'https://seatgeek.com/pittsburgh-penguins-tickets'
 # e.g., 'penguins' means at pittsburgh
 locGames: 'penguins'
 
-# [filtering criteria]
-greatDealScore: 97
-okDealScore: 88
-cheapPrice: 30
-
 # [interval between two consective scrapes]
 # = fixed + random(0, 1) * flexible
 fixedInterval: 50000 # 50 sec
