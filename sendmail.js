@@ -9,10 +9,10 @@
 'use strict'
 
 // print arguments
-process.argv.forEach(function (val, index, array) {
+process.argv.forEach(function(val, index, array) {
     console.log(index + ': ' + val);
-  });
-if(process.argv.length < 6) {
+});
+if (process.argv.length < 6) {
     console.log('usage: node sendmail.js <from> <to> <subject> <body>')
     return
 }
@@ -21,9 +21,15 @@ const nodemailer = require('nodemailer')
 const yaml = require('js-yaml')
 const fs = require('fs')
 
-var config = yaml.safeLoad(fs.read('config.yml', 'utf8'));
+var config = yaml.safeLoad(fs.read('private.yml', 'utf8'));
 const _user = config.user
 const _pass = config.pass
+
+if (_user == undefined || _pass == undefined) {
+    console.log('you need to create a private.yml file with the following information:\n' + 'smtp: <smtp server of you preferred email service>\n' + 'port: <the port number>\n' + 'user: <your user name>\n' + 'pass: <your password>');
+    return
+}
+
 let _from = process.argv[2]
 let _to = process.argv[3]
 let _subject = process.argv[4]

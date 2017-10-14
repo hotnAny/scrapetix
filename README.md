@@ -26,6 +26,7 @@ pass: <your password>
 2. you can customize [config.yml](config.yml) file to choose your favorite team, price, etc.
 ```
 # [your info]
+# [your info]
 email: 'xiangchen@acm.org'
 
 # [your team]
@@ -39,9 +40,21 @@ greatDealScore: 97
 okDealScore: 88
 cheapPrice: 30
 
-# [scraping frequency]
+# [interval between two consective scrapes]
+# = fixed + random(0, 1) * flexible
 fixedInterval: 50000 # 50 sec
 flexibleInterval: 150000 # 150 sec
+
+# [filtering criteria]
+# OR between entries
+# AND within each entry
+# e.g., the following == 
+# (score>=97) OR (score>=88 AND maxPrice<$30 AND year==2017)
+filters:
+  - score: 97
+  - score: 88
+    maxPrice: 30
+    year: 2017
 ```
 
 ## (Mainly) Built With

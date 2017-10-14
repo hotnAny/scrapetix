@@ -33,6 +33,9 @@ var flexibleInterval
 // user email
 var to
 
+// filters for selecting deals
+var filters
+
 //
 //	other variables
 //
@@ -101,7 +104,8 @@ p.settings.resourceTimeout = 5000
 var crawlGameDeals = function(idx) {
 	if (idx >= lsGameUrls.length) {
 		_checkRedundancy()
-		console.log('lsDeals.length = ' + lsDeals.length)
+		console.log('# of gathered deals: ' + lsDealsPrev.length)
+		console.log('# of incoming deals: ' + lsDeals.length)
 		if (lsDeals.length > 0) {
 			var html = ''
 			for (var i = 0; i < lsDeals.length; i++) {
@@ -118,7 +122,7 @@ var crawlGameDeals = function(idx) {
 	}
 
 	var url = lsGameUrls[idx];
-	console.log('crawling game #' + (idx + 1) + ' of ' + lsGameUrls.length + ': ' + url + ' ...');
+	console.log('\n\ncrawling game #' + (idx + 1) + ' of ' + lsGameUrls.length + ': ' + url + ' ...\n\n');
 	p.open(url, function(status) {
 		console.log("open individual game page: " + status);
 		if (status === "success") {
@@ -183,8 +187,8 @@ var crawlGameDeals = function(idx) {
 //	send mail to alert user of deals
 //
 var _sendMail = function(subject, html) {
-	console.log(['_sendMail.js', from, to, subject, html])
-	var child = spawn('node', ['_sendMail.js', from, to, subject, html])
+	console.log(['sendMail.js', from, to, subject, html])
+	var child = spawn('node', ['sendMail.js', from, to, subject, html])
 
 	child.stdout.on("data", function(data) {
 		console.log("spawnSTDOUT:", JSON.stringify(data))
@@ -204,14 +208,26 @@ var _sendMail = function(subject, html) {
 //	apply filter to select games (e.g., high deal score, low price)
 //
 var _filter = function(dealInfo) {
+	for (var i = 0; i < filters.length; i++) {
+		var score = filters[i].score || 0
+		var minPrice = filters[i].minPrice || 0
+		var maxPrice = filters[i].maxPrice || 100
+		var year = filters[i].year || dealInfo.year
+		if(dealInfo.score >= score && minPrice <= dealInfo.price 
+			&& dealInfo.price < maxPrice && dealInfo.year == year) {
+			return true
+		}
+
+	}
+
 	// deal goodness
-	var isOkDeal = dealInfo.score >= okDealScore
-	var isGreatDeal = dealInfo.score >= greatDealScore
+	// var isOkDeal = dealInfo.score >= okDealScore
+	// var isGreatDeal = dealInfo.score >= greatDealScore
 
-	// price
-	var isCheapPrice = dealInfo.price <= cheapPrice;
+	// // price
+	// var isCheapPrice = dealInfo.price <= cheapPrice;
 
-	return isGreatDeal || (dealInfo.year == 2017 && isOkDeal && isCheapPrice);
+	// return isGreatDeal || (dealInfo.year == 2017 && isOkDeal && isCheapPrice);
 }
 
 //
@@ -261,6 +277,7 @@ var _updateConfig = function() {
 	cheapPrice = config.cheapPrice
 	fixedInterval = config.fixedInterval
 	flexibleInterval = config.flexibleInterval
+	filters = config.filters
 }
 
 //
