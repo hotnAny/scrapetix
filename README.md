@@ -2,7 +2,7 @@
 
 # scrapetix
 
-a script to scrape (sports) tickets deals from SeatGeek (https://seatgeek.com/)
+a script to scrape (sports) tickets deals from SeatGeek (https://seatgeek.com/), which means it has limited generalizability beyond this particular website ...
 
 ### Installing
 installing required packages:
