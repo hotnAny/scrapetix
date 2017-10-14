@@ -15,20 +15,20 @@ var process = require("child_process")
 require('./xray') // my javascript array extension
 
 //
-// (to be read from config preriodically)
+//	(to be read from config preriodically)
 //
 // preferrence
 var urlGames
 var locGames
 
-// scraping frequency (to be read from config preriodically)
+//	scraping frequency (to be read from config preriodically)
 var fixedInterval
 var flexibleInterval
 
-// user email
+//	user email
 var to
 
-// filtering criteria for selecting deals
+//	filtering criteria for selecting deals
 var filters
 
 //
@@ -158,6 +158,8 @@ var crawlGameDeals = function(idx) {
 						if (_filter(deal)) {
 							deal.url = url
 							deal.id = _getGameId(deal.url)
+							console.log('this is in: ')
+							console.log(deal.title + ': ' + deal.score + ' $' + deal.price)
 							lsDeals.push(deal)
 						}
 					}
@@ -173,7 +175,7 @@ var crawlGameDeals = function(idx) {
 			delayRetry += delayIncr;
 			setTimeout(function() {
 				crawlGameDeals(idx);
-			}, 1250 + Math.random() * 750 + delayRetry);
+			}, 1000 + Math.random() * 1000 + delayRetry);
 		}
 	});
 }

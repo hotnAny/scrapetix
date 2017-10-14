@@ -4,6 +4,7 @@
 
 a script to scrape (sports) tickets deals from SeatGeek (https://seatgeek.com/), which means it has limited generalizability beyond this particular website ...
 
+main features:
 * customized tickets scraping for your favorite team, price range, etc. (see the customization section)
 * recurring scraping with email notification of new deals
 * edit configuration file on-the-fly without having to restart the script
@@ -19,7 +20,7 @@ npm i
 ### Getting Started
 use phantomjs to run the scraping script:
 ```shell
-./phantomjs scrapetix.js
+node run_scrape.js
 ```
 
 ### Customization
