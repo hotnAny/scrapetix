@@ -37,14 +37,9 @@ email: 'xiangchen@acm.org'
 
 # [your team]
 urlGames: 'https://seatgeek.com/pittsburgh-penguins-tickets'
-# use the team's name (replace space with -) to indicate location
-# e.g., 'penguins' means at pittsburgh
+# use the team's name (replace space if there's any with '-'') 
+# to indicate location, e.g., 'penguins' means at pittsburgh
 locGames: 'penguins'
-
-# [filtering criteria]
-greatDealScore: 97
-okDealScore: 88
-cheapPrice: 30
 
 # [interval between two consective scrapes]
 # = fixed + random(0, 1) * flexible
@@ -52,9 +47,9 @@ fixedInterval: 50000 # 50 sec
 flexibleInterval: 150000 # 150 sec
 
 # [filtering criteria]
-# OR between entries
-# AND within each entry
-# e.g., the following == 
+# - OR between entries
+# - AND within each entry
+# e.g., the following means scraping ticket deals that satisfy
 # (score>=97) OR (score>=88 AND maxPrice<$30 AND year==2017)
 filters:
   - score: 97
