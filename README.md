@@ -17,7 +17,7 @@ use phantomjs to run the scraping script:
 ```
 ### Customization
 1. to receive deal alert via email, you need to create a [private.yml](private.yml) file with your email information
-```
+```yaml
 smtp: <smtp server of you preferred email service>
 port: <the port number>
 user: <your user name>

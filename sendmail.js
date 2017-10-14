@@ -21,7 +21,7 @@ const nodemailer = require('nodemailer')
 const yaml = require('js-yaml')
 const fs = require('fs')
 
-var config = yaml.safeLoad(fs.read('private.yml', 'utf8'));
+var config = yaml.safeLoad(fs.readFileSync('private.yml', 'utf8'));
 const _user = config.user
 const _pass = config.pass
 
