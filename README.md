@@ -6,13 +6,13 @@ a script to scrape (sports) tickets deals from SeatGeek (https://seatgeek.com/)
 
 ### Installing
 installing required packages:
-```
+```shell
 npm i
 ```
 
 ## Getting Started
 use phantomjs to run the scraping script:
-```
+```shell
 ./phantomjs scrapetix.js
 ```
 ### Customization
@@ -24,8 +24,7 @@ user: <your user name>
 pass: <your password>
 ```
 2. you can customize [config.yml](config.yml) file to choose your favorite team, price, etc.
-```
-# [your info]
+```yaml
 # [your info]
 email: 'xiangchen@acm.org'
 
