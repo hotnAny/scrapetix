@@ -171,7 +171,10 @@ var crawlGameDeals = function(idx) {
 				}, 250 + Math.random() * 750)
 			}, 1000);
 		} else {
-			if (delayRetry >= delayIncr * maxNumRetry) crawlGameDeals(idx + 1);
+			if (delayRetry >= delayIncr * maxNumRetry) {
+				delayRetry = delayIncr
+				crawlGameDeals(idx + 1)
+			}
 			delayRetry += delayIncr;
 			setTimeout(function() {
 				crawlGameDeals(idx);
