@@ -51,9 +51,14 @@ flexibleInterval: 150000 # 150 sec
 # - OR between entries
 # - AND within each entry
 # e.g., the following means scraping ticket deals that satisfy
-# (score>=97) OR (score>=88 AND maxPrice<$30 AND year==2017)
+# (score>=95) OR (score>=88 AND maxPrice<$30 AND year==2017)
+#
+# accepting the following criteria:
+# - score
+# - maxPrice/minPrice
+# - year
 filters:
-  - score: 97
+  - score: 95
   - score: 88
     maxPrice: 30
     year: 2017

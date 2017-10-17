@@ -27,3 +27,11 @@ filters:
   - score: 88
     maxPrice: 30
     year: 2017
+
+####################### advanced setting #######################
+
+# send crash report
+sendFailuresReport: true
+
+# periodically restart when reaching max num of crawling
+maxNumCrawl: 100

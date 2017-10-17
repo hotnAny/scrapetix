@@ -31,6 +31,10 @@ var to
 //	filtering criteria for selecting deals
 var filters
 
+//	other settings
+var sendFailuresReport
+var maxNumCrawl
+
 //
 //	other variables
 //
@@ -47,6 +51,8 @@ var lsDealsPrev = [];
 var delayRetry = 0
 var delayIncr = 250
 var maxNumRetry = 5
+
+var crawlCounter
 
 page.onConsoleMessage = function(msg) {
 	if (msg == undefined) console.log('undefined!')
@@ -124,22 +130,29 @@ var crawlGameDeals = function(idx) {
 			delayRetry = 0;
 			setTimeout(function() {
 				p.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js", function() {
-					var dealInfos = p.evaluate(function() {
-						var dealInfos = [];
+					var dealInfos = p.evaluate(function(scraper) {
+						var dealInfos = []
 						var dealTagClass = 'omnibox__listing__deal-score';
 						var dealTags = $('div.' + dealTagClass);
 						var priceTagClass = 'omnibox__listing__buy__price';
 						var priceTags = $('span.' + priceTagClass);
 
-						console.log('got ' + dealTags.length + ' deals:')
-						for (var i = 0; i < dealTags.length; i++) {
-							var dealScore = parseFloat($(dealTags[i]).html())
-							var strPrice = $(priceTags[i]).html()
-							var idxPrice = strPrice.indexOf('$');
+						//
+						//	get deal price from specially formatted string
+						//
+						var _getDealPrice = function(strPrice) {
+							var idxPrice = strPrice.indexOf('$')
 							strPrice = strPrice.substring(idxPrice)
 							var idxBracket = strPrice.indexOf('<')
 							strPrice = strPrice.substring(1, idxBracket)
-							var dealPrice = parseFloat(strPrice)
+							return parseFloat(strPrice)
+						}
+
+						console.log('got ' + dealTags.length + ' deals:')
+						for (var i = 0; i < dealTags.length; i++) {
+							var dealScore = parseFloat($(dealTags[i]).html())
+							var dealPrice = _getDealPrice($(priceTags[i]).html())
+
 							console.log(dealScore + ': ' + dealPrice)
 
 							dealInfos.push({
@@ -173,7 +186,8 @@ var crawlGameDeals = function(idx) {
 		} else {
 			if (delayRetry >= delayIncr * maxNumRetry) {
 				delayRetry = delayIncr
-				crawlGameDeals(idx + 1)
+				if (sendFailuresReport) _sendMail('Too-Many-Failures Report', '-_-b')
+				else crawlGameDeals(idx + 1)
 			}
 			delayRetry += delayIncr;
 			setTimeout(function() {
@@ -227,6 +241,7 @@ var _getGameId = function(url) {
 	return url.substring(idxLastSlash + 1)
 }
 
+
 //
 //	check redundancy between gathered deals and incoming deals
 //
@@ -264,12 +279,16 @@ var _updateConfig = function() {
 	fixedInterval = config.fixedInterval
 	flexibleInterval = config.flexibleInterval
 	filters = config.filters
+	sendFailuresReport = config.sendFailuresReport
+	maxNumCrawl = config.maxNumCrawl
 }
 
 //
 //	update gathered deals, rerun the scrape after a fixed+random time
 //
 var rerun = function() {
+	if (++crawlCounter > maxNumCrawl) phantom.exit()
+
 	lsDealsPrev = lsDealsPrev.concat(lsDeals)
 	lsDeals = []
 
