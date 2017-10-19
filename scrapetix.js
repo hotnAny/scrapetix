@@ -70,16 +70,21 @@ var scrape = function() {
 		console.log("open main page with games: " + status);
 		if (status === "success") {
 			page.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js", function() {
-				lsGameUrls = page.evaluate(function(loc) {
+				lsGameUrls = page.evaluate(function(locs) {
 					var ls = []
 					var checkList = {}
 					var urlMain = 'https://seatgeek.com'
 					var lsEvents = $('a.event-listing-title')
 					for (var i = 0; i < lsEvents.length; i++) {
 						var urlPerGame = urlMain + $(lsEvents[i]).attr('href');
-						if (urlPerGame.indexOf('at-' + loc) >= 0 && checkList[urlPerGame] == undefined) {
-							ls.push(urlPerGame)
-							checkList[urlPerGame] = true
+						for (var j = 0; j < locs.length; j++) {
+							if (urlPerGame.indexOf('at-' + locs[j]) >= 0) {
+								if (checkList[urlPerGame] == undefined) {
+									ls.push(urlPerGame)
+									checkList[urlPerGame] = true
+								}
+								break;
+							}
 						}
 					}
 					return ls;
@@ -98,6 +103,10 @@ var scrape = function() {
 var p = require('webpage').create()
 p.onConsoleMessage = page.onConsoleMessage
 p.settings.resourceTimeout = 5000
+p.viewportSize = {
+  width: 480,
+  height: 800
+}
 
 //
 //	routines to scrape each game page
@@ -132,10 +141,11 @@ var crawlGameDeals = function(idx) {
 				p.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js", function() {
 					var dealInfos = p.evaluate(function(scraper) {
 						var dealInfos = []
-						var dealTagClass = 'omnibox__listing__deal-score';
-						var dealTags = $('div.' + dealTagClass);
-						var priceTagClass = 'omnibox__listing__buy__price';
-						var priceTags = $('span.' + priceTagClass);
+						var dealTagClass = 'omnibox__listing__deal-score'
+						var dealTags = $('div.' + dealTagClass)
+						var priceTagClass = 'omnibox__listing__buy__price'
+						var priceTags = $('span.' + priceTagClass)
+						var numTixTags = $('span[data-quantity=true]')
 
 						//
 						//	get deal price from specially formatted string
@@ -152,13 +162,14 @@ var crawlGameDeals = function(idx) {
 						for (var i = 0; i < dealTags.length; i++) {
 							var dealScore = parseFloat($(dealTags[i]).html())
 							var dealPrice = _getDealPrice($(priceTags[i]).html())
-
-							console.log(dealScore + ': ' + dealPrice)
+							var numTix = parseInt($(numTixTags[i]).html().match(/\d/g).join(''))
+							console.log(dealScore + ': ' + dealPrice + ' x' + numTix)
 
 							dealInfos.push({
 								title: document.title,
 								score: dealScore,
 								price: dealPrice,
+								num: numTix
 							})
 						}
 
@@ -227,7 +238,9 @@ var _filter = function(dealInfo) {
 		var minPrice = filters[i].minPrice || 0
 		var maxPrice = filters[i].maxPrice || 100
 		var year = filters[i].year || dealInfo.year
-		if (dealInfo.score >= score && minPrice <= dealInfo.price && dealInfo.price < maxPrice && dealInfo.year == year) {
+		var minNum = filters[i].minNum || 0
+		var maxNum = filters[i].maxNum || Number.MAX_VALUE
+		if (dealInfo.score >= score && minPrice <= dealInfo.price && dealInfo.price < maxPrice && dealInfo.year == year && dealInfo.num >= minNum && dealInfo.num <= maxNum) {
 			return true
 		}
 	}
