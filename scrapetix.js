@@ -104,8 +104,8 @@ var p = require('webpage').create()
 p.onConsoleMessage = page.onConsoleMessage
 p.settings.resourceTimeout = 5000
 p.viewportSize = {
-  width: 480,
-  height: 800
+	width: 480,
+	height: 800
 }
 
 //
@@ -124,7 +124,7 @@ var crawlGameDeals = function(idx) {
 				console.log(link)
 				html += link
 			}
-			_sendMail('Deal!', html)
+			_sendMail(lsDeals.length + ' Deal' + (lsDeals.length > 1 ? 's' : '') + '!', html)
 		} else {
 			rerun()
 		}
