@@ -27,11 +27,11 @@ flexibleInterval: 150000 # 150 sec
 # - year
 # - minNum/maxNum # number of tickets
 filters:
-  - score: 95
-  - score: 85
-    maxPrice: 30
+  - score: 94
+  - score: 91
+    maxPrice: 35
     year: 2017
-    minNum: 3
+    minNum: 2
 
 ####################### advanced setting #######################
 
