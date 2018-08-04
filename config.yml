@@ -2,13 +2,14 @@
 email: 'xiangchen@acm.org'
 
 # [your team]
-urlGames: 'https://seatgeek.com/pittsburgh-penguins-tickets'
+# urlGames: 'https://seatgeek.com/pittsburgh-penguins-tickets'
+urlGames: https://seatgeek.com/los-angeles-kings-tickets
 # [interested locations]
 # use the team's name to indicate location, 
 # e.g., 'penguins' means at pittsburgh
 locGames:
-  - 'penguins'
-  - 'sharks'
+  - 'kings'
+  # - 'sharks'
 
 # [interval between two consective scrapes]
 # = fixed + random(0, 1) * flexible
@@ -27,16 +28,13 @@ flexibleInterval: 150000 # 150 sec
 # - year
 # - minNum/maxNum # number of tickets
 filters:
-  - score: 94
-  - score: 91
+  - score: 9.5
     maxPrice: 35
-    year: 2017
-    minNum: 2
-
+    
 ####################### advanced setting #######################
 
 # send crash report
 sendFailuresReport: false
 
 # periodically restart when reaching max num of crawling
-maxNumCrawl: 100
+maxNumCrawl: 50
